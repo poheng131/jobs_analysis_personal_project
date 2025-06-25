@@ -11,18 +11,23 @@ import pandas as pd
 from datetime import datetime
 from urllib.parse import quote
 
-# 🔍 只抓特定兩個關鍵字
-KEYWORDS = ["數據分析", "Data Analytic"]
+# ✅ 白名單：只保留這些職缺名稱關鍵字的職缺
+WHITELIST_KEYWORDS = [
+    "數據分析", "資料分析", "data analyst", "data analysis", 
+    "data analytic", "資料科學", "data scientist",
+    "資料工程", "data engineer", "商業分析", "bi", 
+    "bi工程師", "bi analyst", "powerbi", "business intelligence",
+    "business analyst", "machine learning", "AI分析"
+]
 
-# ❌ 排除不相關職缺（根據職缺名稱）
+# ❌ 黑名單：排除這些明顯不相關的職缺
 EXCLUDE_WORDS = ["助理", "客服", "門市", "儲備幹部", "工讀", "講師", "作業員", "行政", "業務", "外包", "設計"]
 
 def is_relevant_job(title):
-    if any(bad in title for bad in EXCLUDE_WORDS):
-        return False
-    return True
+    title = title.lower()
+    return any(k.lower() in title for k in WHITELIST_KEYWORDS) and not any(bad in title for bad in EXCLUDE_WORDS)
 
-# ✅ 主爬蟲函式（保留所有欄位）
+# ✅ 主爬蟲函式
 def get_104_jobs_raw(keyword, max_pages=100):
     headers = {
         "User-Agent": "Mozilla/5.0",
@@ -30,7 +35,6 @@ def get_104_jobs_raw(keyword, max_pages=100):
     }
     jobs = []
     page = 1
-    page_size = 20
 
     while page <= max_pages:
         url = (
@@ -71,49 +75,21 @@ def get_104_jobs_raw(keyword, max_pages=100):
 # ✅ 主流程
 if __name__ == "__main__":
     all_jobs = []
-    for kw in KEYWORDS:
+    # 👉 關鍵字可只設為 "資料"、"數據"，因為篩選邏輯改由 is_relevant_job 控制
+    SEARCH_KEYWORDS = ["數據", "資料", "分析", "data"]
+
+    for kw in SEARCH_KEYWORDS:
         jobs = get_104_jobs_raw(kw, max_pages=100)
         all_jobs.extend(jobs)
 
     df = pd.DataFrame(all_jobs)
-    
-    # 分類函式
-    def classify_job(title):
-        title = str(title).lower()
-    
-        core_keywords = [
-            'data analyst', '資料分析', '數據分析', 'data analysis', 
-            'bi工程師', 'bi analyst', 'business intelligence', '商業分析'
-        ]
-    
-        applied_keywords = [
-            '行銷分析', '營運分析', 'crm分析', '產品分析', '電商分析',
-            'marketing analyst', 'operation analyst', 'crm', 'insight'
-        ]
-    
-        unrelated_keywords = [
-            '助理', '研究助理', '企劃', '行銷企劃', '行政', '客服',
-            'pm', 'sales', '業務', 'driver', '設計', '工讀', '外包'
-        ]
-    
-        if any(k in title for k in core_keywords):
-            return 'core'
-        elif any(k in title for k in applied_keywords):
-            return 'applied'
-        elif any(k in title for k in unrelated_keywords):
-            return 'unrelated'
-        else:
-            return 'unknown'
-    
-    # ✅ 套用分類，增加 job_category 欄位
-    df['job_category'] = df['jobName'].apply(classify_job)
 
-    
+    # ✅ 去除重複職缺（根據職缺名稱、公司名稱、職缺編號）
     df.drop_duplicates(subset=["jobName", "custName", "jobNo"], inplace=True)
 
+    # ✅ 儲存資料
     today = datetime.today().strftime("%Y-%m-%d")
-    filename = f"104_jobs_raw_{today}.csv"
+    filename = f"104_jobs_filtered_{today}.csv"
     df.to_csv(filename, index=False, encoding="utf-8-sig")
 
-    print(f"\n🎉 完成！共儲存 {len(df)} 筆原始職缺資料 ➜ {filename}")
-
+    print(f"\n🎉 完成！共儲存 {len(df)} 筆符合白名單的職缺 ➜ {filename}")
