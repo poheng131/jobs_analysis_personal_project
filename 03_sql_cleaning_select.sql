@@ -34,13 +34,5 @@ WHERE
         jobName LIKE N'%business intelligence%' OR description LIKE N'%business intelligence%' OR
         jobName LIKE N'%BI%' OR description LIKE N'%BI%'
     )
-    AND (salaryLow IS NOT NULL OR salaryHigh IS NOT NULL)
-    AND jobName NOT LIKE N'%工程師%'
-    AND jobName NOT LIKE N'%工程师%'
-    AND jobName NOT LIKE N'%工程 師%'
-    AND jobName NOT LIKE N'%engineer%'
-    AND description NOT LIKE N'%工程師%'
-    AND description NOT LIKE N'%工程师%'
-    AND description NOT LIKE N'%工程 師%'
-    AND description NOT LIKE N'%engineer%';
+
 

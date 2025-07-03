@@ -15,7 +15,7 @@ import urllib
 params = urllib.parse.quote_plus(
     "DRIVER={ODBC Driver 17 for SQL Server};"
     "SERVER=FMPC\\SQLEXPRESS;"  # 例如：'localhost\\SQLEXPRESS' or '192.168.1.100'
-    "DATABASE=104職缺;"
+    "DATABASE=數據分析職缺_專題;"
     "Trusted_Connection=yes;"
 )
 
