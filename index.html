@@ -1,48 +1,38 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>104 職缺分析專題</title>
+  <title>104職缺分析專題</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <nav class="nav-bar">
+    <a href="index.html">首頁</a>
+    <a href="problem.html">問題定義</a>
+    <a href="data.html">資料處理</a>
+    <a href="eda.html">EDA 與視覺化</a>
+    <a href="ml.html">機器學習</a>
+    <a href="team.html">團隊分工</a>
+    <a href="insights.html">洞察總結</a>
+  </nav>
   <div class="container">
-    <h1>104 職缺分析專題</h1>
-
+    <h1>104職缺分析專題</h1>
     <section>
       <h2>專題說明</h2>
-      <p>本專題透過爬蟲自 104 人力銀行/Jobsdb蒐集數據分析相關職缺資訊，進行清理與視覺化，探討職缺分佈、熱門工具技能、產業類型與地區趨勢。</p>
+      <p>本專題透過爬蟲蒐集數據分析職缺資訊，進行清理、視覺化與預測，協助求職者掌握市場需求，並預測合理薪資範圍。</p>
     </section>
-
     <section>
-      <h2>資料來源與取得方式</h2>
+      <h2>網站導覽</h2>
       <ul>
-        <li>資料來源：
-            <a href="https://www.104.com.tw" target="_blank">104人力銀行</a>、
-            <a href="https://www.jobsdb.com/tw" target="_blank">JobsDB</a>
-        </li>
-        <li>使用 Python 撰寫爬蟲腳本，定期蒐集關鍵字包含「數據分析」、「資料工程」等職缺</li>
-        <li>進一步清洗、標準化職缺資訊（如技能欄位、產業類別等）</li>
+        <li><a href="problem.html">問題定義</a>：為何要做這個專題？想解決什麼？</li>
+        <li><a href="data.html">資料來源與處理方式</a>：如何取得與清理資料？</li>
+        <li><a href="eda.html">EDA 與 Power BI</a>：探索性資料分析與可視化成果</li>
+        <li><a href="ml.html">機器學習應用</a>：文本分類與薪資預測模型</li>
+        <li><a href="team.html">團隊分工</a>：成員及其任務</li>
+        <li><a href="insights.html">洞察與總結</a>：我們發現了什麼？有何建議？</li>
       </ul>
-    </section>
-
-    <section>
-      <h2>成員與分工</h2>
-      <ul>
-        <li>單人作業</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>分析目的與預計提供的見解</h2>
-      <ol>
-        <li>整理全台數據分析相關職缺的地區分佈與密度</li>
-        <li>分析熱門工具與技能需求（如 Power BI、SQL、Python）=>何者最熱門?</li>
-        <li>探索企業產業別與薪資結構的差異</li>=>選擇產業/作品集的依據
-        <li>提供數據人才在求職時的參考建議</li>
-        <li>面議薪資ML預測與shap解釋</li>=>談薪資的依據
-      </ol>
     </section>
   </div>
 </body>
