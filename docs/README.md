@@ -1,7 +1,7 @@
 # -
 
 ## 📁 資料夾結構說明
-‵‵‵
+```
 JOBS_ANALYSIS_PERSONAL_PROJECT/
 ├── data/ ← 存放原始資料與清理後的資料
 │ ├── raw/ ← 原始資料（不做更動）
@@ -21,4 +21,4 @@ JOBS_ANALYSIS_PERSONAL_PROJECT/
 │
 ├── README.md ← 專案說明文件
 └── requirements.txt ← Python 套件需求列表
-‵‵‵
+```
