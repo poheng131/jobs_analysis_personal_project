@@ -1,5 +1,3 @@
-# -
-
 ## 📁 資料夾結構說明
 ```
 JOBS_ANALYSIS_PERSONAL_PROJECT/
