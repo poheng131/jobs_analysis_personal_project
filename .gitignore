@@ -1,0 +1,26 @@
+# Ignore virtual environment folder
+104project/
+
+# Ignore IDE files (like VS Code settings)
+.vscode/
+
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore log files
+*.log
+
+# Ignore Python packaging files
+*.egg
+*.egg-info
+dist/
+build/
+*.whl
+
+# Ignore Python dependency lock files (if not using pipenv or poetry)
+Pipfile.lock
