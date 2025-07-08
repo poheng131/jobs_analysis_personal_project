@@ -1,6 +1,9 @@
 import requests
 import time
 import random
+import pandas as pd
+from datetime import datetime 
+import os  
 
 #先F12開啟開發者模式，確認參數
 keywords="數據分析"
@@ -26,9 +29,10 @@ headers={
 #開始請求回傳資料
 
 all_data=[]  #將蒐集的資料存在這個空list當中
-max_page=1
+max_page=10
 while page <= max_page:
     try:
+        print(f"🔍 抓取「{keywords}」第 {page} 頁")
         response=requests.get(url=url,params=params,headers=headers)
         data=response.json()
         all_data.extend(data["data"])     #因為104回傳的json格式是  {"data": [ { 
@@ -38,3 +42,12 @@ while page <= max_page:
         print(e)
         print("錯誤，解析json失敗!!")
         break
+
+#將回傳內容儲存成檔案
+df=pd.DataFrame(all_data)  
+today=datetime.today().strftime("%Y-%m-%d")
+filename=f"104_rawdata_{today}.csv"
+folder=r"C:\Users\FM_pc\Desktop\jobs_analysis_project\data"
+os.makedirs(folder,exist_ok=True)  #確保資料夾存在，無則建立
+df.to_csv(os.path.join(folder,filename),index=False,encoding="utf-8-sig")
+print(f"爬蟲完成，儲存成{filename}")
