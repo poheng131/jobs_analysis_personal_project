@@ -22,7 +22,13 @@ headers={
 
 
 #開始請求資料
-
-response=requests.get(url=url,params=params,headers=headers)
-data=response.json()
-print(data)
+max_page=10
+while page <= max_page:
+    try:
+        response=requests.get(url=url,params=params,headers=headers)
+        data=response.json()
+        print(data)
+        page+=1
+    except Exception as e:
+        print(e)
+        print("錯誤，解析json失敗!!")
