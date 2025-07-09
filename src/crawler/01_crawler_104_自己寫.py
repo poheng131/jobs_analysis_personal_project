@@ -29,9 +29,10 @@ headers={
 #開始請求回傳資料
 
 all_data=[]  #將蒐集的資料存在這個空list當中
-max_page=10
+max_page=20
 while page <= max_page:
     try:
+        params["page"]=page
         print(f"🔍 抓取「{keywords}」第 {page} 頁")
         response=requests.get(url=url,params=params,headers=headers)
         data=response.json()
