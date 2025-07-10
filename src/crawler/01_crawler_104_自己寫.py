@@ -46,7 +46,7 @@ def is_relevant_job(title):
 #開始請求回傳資料
 
 all_data=[]  #將蒐集的資料存在這個空list當中
-max_page=20
+max_page=50
 while page <= max_page:
     try:
         params["page"]=page
