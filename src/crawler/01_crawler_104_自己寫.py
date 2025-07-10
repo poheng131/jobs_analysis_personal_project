@@ -26,6 +26,23 @@ headers={
 }
 
 
+# ✅ 白名單：只保留這些職缺名稱關鍵字的職缺
+WHITELIST_KEYWORDS = [
+    "數據分析", "資料分析", "data analyst", "data analysis", 
+    "data analytic", "資料科學", "data scientist",
+    "資料工程", "data engineer", "商業分析", "bi", 
+    "bi工程師", "bi analyst", "powerbi", "business intelligence",
+    "business analyst", "machine learning", "AI分析"
+]
+
+# ❌ 黑名單：排除這些明顯不相關的職缺
+EXCLUDE_WORDS = ["助理", "客服", "門市", "儲備幹部", "工讀", "講師", "作業員", "行政", "業務", "外包", "設計"]
+
+def is_relevant_job(title):
+    title=title.lower()
+    return any(good in title for good in WHITELIST_KEYWORDS) and not any(bad in title for bad in EXCLUDE_WORDS)
+
+
 #開始請求回傳資料
 
 all_data=[]  #將蒐集的資料存在這個空list當中
@@ -36,7 +53,8 @@ while page <= max_page:
         print(f"🔍 抓取「{keywords}」第 {page} 頁")
         response=requests.get(url=url,params=params,headers=headers)
         data=response.json()
-        all_data.extend(data["data"])     #因為104回傳的json格式是  {"data": [ { 
+        filter_jobs=[job for job in data["data"] if is_relevant_job(job["jobName"])] 
+        all_data.extend(filter_jobs)      
         time.sleep(random.uniform(1.5,3.5)) #模擬人操作，隨機時間間隔換頁
         page+=1
     except Exception as e:

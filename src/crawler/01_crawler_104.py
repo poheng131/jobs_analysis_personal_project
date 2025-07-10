@@ -25,7 +25,7 @@ EXCLUDE_WORDS = ["助理", "客服", "門市", "儲備幹部", "工讀", "講師
 
 def is_relevant_job(title):
     title = title.lower()
-    return any(k.lower() in title for k in WHITELIST_KEYWORDS) and not any(bad in title for bad in EXCLUDE_WORDS)
+    return any(good in title for good in WHITELIST_KEYWORDS) and not any(bad in title for bad in EXCLUDE_WORDS)
 
 # ✅ 主爬蟲函式
 def get_104_jobs_raw(keyword, max_pages=100):
